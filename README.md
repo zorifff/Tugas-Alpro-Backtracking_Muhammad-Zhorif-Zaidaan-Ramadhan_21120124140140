@@ -1,4 +1,4 @@
-```markdown
+
 # Tugas Individu: Algoritma Backtracking - Rat in a Maze
 
 Muhammad Zhorif Zaidaan Ramadhan  
