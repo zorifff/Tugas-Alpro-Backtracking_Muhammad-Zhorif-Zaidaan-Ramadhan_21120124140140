@@ -30,8 +30,7 @@ Sistem ini menggunakan algoritma **Backtracking** (pencarian rekursif) untuk men
 5. **Penyelesaian:** Proses penelusuran dan *backtracking* ini diulang terus-menerus hingga tikus mencapai titik tujuan `(11, 11)` (Berhasil menemukan jalan keluar), atau hingga tikus mundur kembali ke titik awal dan menyadari tidak ada satu pun rute yang tersisa (Buntu total).
 
 ## Flowchart Algoritma
-```mermaid
-graph TD
+flowchart TD
     A([Mulai: Posisi x, y]) --> B{Apakah di titik tujuan?}
     B -- Ya --> C([Selesai: Solusi Ditemukan])
     B -- Tidak --> D{Apakah posisi aman?}
@@ -50,10 +49,9 @@ graph TD
     I -- Buntu --> J{Coba Kiri?}
     
     J -- Berhasil --> C
-    J -- Buntu --> K[BACKTRACK! <br> Hapus jejak, tampilkan ❌, catat log]
+    J -- Buntu --> K[BACKTRACK: Hapus jejak dan mundur]
     
     K --> E
-```
 
 ## Cara Menjalankan Program
 1. Pastikan Python sudah terinstal di komputer.
