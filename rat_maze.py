@@ -2,7 +2,7 @@ import time
 import os
 import random
 
-# Variabel global untuk menyimpan data statistik
+
 statistik = {
     "jumlah_backtrack": 0,
     "log_lokasi": []
@@ -11,7 +11,7 @@ statistik = {
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-# Parameter 'pesan' sudah dihapus
+
 def print_maze(maze, curr_x=-1, curr_y=-1, is_buntu=False):
     clear_screen()
     print("Visualisasi Rat in a Maze - Algoritma Backtracking\n")
@@ -23,7 +23,7 @@ def print_maze(maze, curr_x=-1, curr_y=-1, is_buntu=False):
     for i in range(n):
         baris = ""
         if i == 0:
-            baris += "  "  # Pintu masuk
+            baris += "  "  
         else:
             baris += "🧱"
             
@@ -34,7 +34,7 @@ def print_maze(maze, curr_x=-1, curr_y=-1, is_buntu=False):
                 baris += "🌳"
             elif maze[i][j] == 2:
                 if i == curr_x and j == curr_y:
-                    # Jika sedang buntu, tampilkan tanda silang
+                
                     if is_buntu:
                         baris += "❌"
                     else:
@@ -43,14 +43,14 @@ def print_maze(maze, curr_x=-1, curr_y=-1, is_buntu=False):
                     baris += "🐁"
                     
         if i == n - 1:
-            baris += "  "  # Pintu keluar
+            baris += "  "  
         else:
             baris += "🧱"
         print(baris)
         
     print("🧱" * (n + 2))
     
-    # Cetak 5 log backtrack terakhir di bawah labirin
+    
     if statistik["log_lokasi"]:
         print("\nLog Backtrack Terakhir:")
         for log in statistik["log_lokasi"][-5:]:
@@ -71,25 +71,25 @@ def is_safe(maze, x, y, n):
 def solve_maze_util(maze, x, y, n):
     if x == n - 1 and y == n - 1 and maze[x][y] == 1:
         maze[x][y] = 2
-        print_maze(maze, x, y) # Teks dihapus
+        print_maze(maze, x, y)
         return True
 
     if is_safe(maze, x, y, n):
         maze[x][y] = 2
-        print_maze(maze, x, y) # Teks dihapus
+        print_maze(maze, x, y) 
 
         if solve_maze_util(maze, x + 1, y, n): return True
         if solve_maze_util(maze, x, y + 1, n): return True
         if solve_maze_util(maze, x - 1, y, n): return True
         if solve_maze_util(maze, x, y - 1, n): return True
 
-        # MOMEN BACKTRACKING
+        
         statistik["jumlah_backtrack"] += 1
         pesan_log = f"-> Mundur dari jalan buntu di Baris {x}, Kolom {y}"
         statistik["log_lokasi"].append(pesan_log)
         
-        # Tampilkan visualisasi ❌ 
-        print_maze(maze, x, y, is_buntu=True) # Teks dihapus
+        
+        print_maze(maze, x, y, is_buntu=True) 
         
         maze[x][y] = 1
         return False
@@ -113,7 +113,7 @@ def generate_random_maze(n, probabilitas_tembok=0.25):
 
 def solve_maze(maze):
     n = len(maze)
-    print_maze(maze) # Teks dihapus
+    print_maze(maze) 
     time.sleep(1.5) 
     
     if not solve_maze_util(maze, 0, 0, n):
