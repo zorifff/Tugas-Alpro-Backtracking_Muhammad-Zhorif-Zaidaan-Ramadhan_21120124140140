@@ -43,34 +43,49 @@ Sistem ini menggunakan algoritma **Backtracking** (pencarian rekursif) untuk men
 
 ## Pseudo Code
 ```text
-Fungsi solve_maze_util(maze, x, y, n):
-    1. JIKA posisi (x, y) adalah titik tujuan (n-1, n-1) DAN jalan kosong:
-        Tandai (x, y) sebagai jejak tikus
-        Tampilkan visualisasi maze ke CLI
-        KEMBALIKAN Benar (True)
+ALGORITMA RAT IN A MAZE DENGAN VISUALISASI (BACKTRACKING)
+START
+    Input maze (matriks N x N)
+    Inisialisasi jumlah_backtrack ← 0
+    Inisialisasi log_lokasi ← []
+    Tentukan START = (0,0) dan END = (N-1, N-1)
 
-    2. JIKA posisi (x, y) aman (berada di dalam kotak DAN bukan rintangan):
-        Tandai (x, y) sebagai jejak tikus
-        Tampilkan visualisasi maze ke CLI
+    FUNCTION SolveMazeUtil(maze, x, y, N)
+        // Base Case: Tikus sampai di titik tujuan
+        IF (x == N-1 AND y == N-1 AND maze[x][y] == 1) THEN
+            maze[x][y] ← 2 // Tandai jalan dengan jejak tikus
+            Tampilkan visualisasi maze ke CLI
+            RETURN True
+        ENDIF
 
-        a. Coba bergerak ke BAWAH: solve_maze_util(maze, x+1, y, n)
-           JIKA berhasil, KEMBALIKAN Benar
-        
-        b. Coba bergerak ke KANAN: solve_maze_util(maze, x, y+1, n)
-           JIKA berhasil, KEMBALIKAN Benar
-        
-        c. Coba bergerak ke ATAS: solve_maze_util(maze, x-1, y, n)
-           JIKA berhasil, KEMBALIKAN Benar
-        
-        d. Coba bergerak ke KIRI: solve_maze_util(maze, x, y-1, n)
-           JIKA berhasil, KEMBALIKAN Benar
+        // Periksa apakah posisi (x, y) valid dan aman
+        IF (x, y) berada dalam batas maze AND maze[x][y] == 1 THEN
+            maze[x][y] ← 2 // Tandai jalan dengan jejak tikus
+            Tampilkan visualisasi maze ke CLI
 
-        3. MOMEN BACKTRACKING (Jika semua arah di atas buntu):
-           Tambahkan 1 ke statistik jumlah_backtrack
-           Catat log lokasi buntu di (x, y)
-           Tampilkan visualisasi maze dengan indikator ❌ (buntu)
-           Hapus jejak di (x, y) kembali menjadi jalan kosong
-           KEMBALIKAN Salah (False)
+            // Rekursi untuk mengecek 4 arah prioritas
+            IF SolveMazeUtil(maze, x+1, y, N) THEN RETURN True // Bawah
+            IF SolveMazeUtil(maze, x, y+1, N) THEN RETURN True // Kanan
+            IF SolveMazeUtil(maze, x-1, y, N) THEN RETURN True // Atas
+            IF SolveMazeUtil(maze, x, y-1, N) THEN RETURN True // Kiri
 
-    4. KEMBALIKAN Salah (False)
+            // Momen Backtracking (Semua arah buntu)
+            jumlah_backtrack ← jumlah_backtrack + 1
+            Catat koordinat (x, y) ke dalam log_lokasi
+            Tampilkan visualisasi maze dengan indikator ❌
+            
+            maze[x][y] ← 1 // Hapus jejak, kembalikan menjadi jalan kosong
+            RETURN False
+        ENDIF
+
+        RETURN False
+    END FUNCTION
+
+    // Pemanggilan Fungsi Utama
+    IF SolveMazeUtil(maze, 0, 0, N) == False THEN
+        Tampilkan "Gagal: Tidak ada jalan keluar (Buntu Total)"
+    ELSE
+        Tampilkan "Berhasil: Tikus menemukan jalan keluar"
+    ENDIF
+END
 ``` 
